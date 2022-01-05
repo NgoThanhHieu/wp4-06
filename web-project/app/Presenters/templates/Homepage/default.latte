@@ -1,4 +1,5 @@
 {block content}
+
 	<h1 n:block="title">Můj blog</h1>
 
 	{foreach $posts as $post}
@@ -10,4 +11,5 @@
 		<div>{$post->content|truncate:256}</div>
 	</div>
 	{/foreach}
+	<h2><a href="{link Post:show $post->id}">{$post->title}</a></h2>
 {/block}
