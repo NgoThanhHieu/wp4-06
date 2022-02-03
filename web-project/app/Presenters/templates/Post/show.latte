@@ -1,6 +1,6 @@
 {block content}
 
-<p><a n:href="Homepage:default">← zpět na výpis příspěvků</a></p>
+<p><a n:href="Homepage:default">← zpět</a></p>
 
 <div class="date">{$post->created_at|date:'F j, Y'}</div>
 
@@ -18,11 +18,9 @@
 
 		<div>{$comment->content}</div>
 	{/foreach}
-    
+
 </div>
-
-<h2>Vložte nový příspěvek</h2>
-<a n:href="Edit:edit $post->id">Upravit příspěvek</a>
-
+<a n:href="Edit:edit $post->id" n:if="$user->isLoggedIn()">Upravit příspěvek</a>
+<h2>Nový Komentář</h2>
 
 {control commentForm}

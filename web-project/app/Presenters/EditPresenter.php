@@ -12,7 +12,17 @@ final class EditPresenter extends Nette\Application\UI\Presenter
 	{
 		$this->database = $database;
 	}
-    protected function createComponentPostForm(): Form
+
+	public function startup(): void
+{
+	parent::startup();
+
+	if (!$this->getUser()->isLoggedIn()) {
+		$this->redirect('Sign:in');
+	}
+}
+
+protected function createComponentPostForm(): Form
 {
 	$form = new Form;
 	$form->addText('title', 'Titulek:')

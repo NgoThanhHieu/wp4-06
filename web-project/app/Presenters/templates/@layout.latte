@@ -5,6 +5,8 @@
 	<meta name="viewport" content="width=device-width">
 
 	<title>{ifset title}{include title|stripHtml} | {/ifset}Nette Web</title>
+	<link rel="stylesheet" href="{$basePath}/css/style.css">
+
 </head>
 
 <body>
@@ -15,10 +17,13 @@
 	{block scripts}
 	<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
 	{/block}
-
-	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">
-	{$flash->message}
-</div>
-
+	<ul class="navig" >
+    <li><a n:href="Homepage:">Hlavní strana</a></li>
+    {if $user->isLoggedIn()}
+        <li><a n:href="Sign:out">Odhlásit</a></li>
+    {else}
+        <li><a n:href="Sign:in">Přihlásit</a></li>
+    {/if}
+</ul>
 </body>
 </html>

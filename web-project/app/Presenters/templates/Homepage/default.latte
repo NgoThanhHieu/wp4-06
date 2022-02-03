@@ -1,6 +1,5 @@
 {block content}
-
-	<h1 n:block="title">Můj blog</h1>
+	<h1 n:block="title">Hate Kuba blog</h1>
 
 	{foreach $posts as $post}
 	<div class="post">
@@ -11,7 +10,6 @@
 		<div>{$post->content|truncate:256}</div>
 	</div>
 	{/foreach}
-	<h2><a href="{link Post:show $post->id}">{$post->title}</a></h2>
-	<a n:href="Edit:create">Napsat nový příspěvek</a>
-
+	<h2><a n:href="Post:show $post->id">{$post->title}</a></h2>
+	<a n:href="Edit:create" n:if="$user->isLoggedIn()">Napsat nový příspěvek</a>
 {/block}
