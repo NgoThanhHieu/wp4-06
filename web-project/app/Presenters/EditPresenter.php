@@ -3,14 +3,16 @@ namespace App\Presenters;
 
 use Nette;
 use Nette\Application\UI\Form;
+use App\Model\PostFacade;
 
 final class EditPresenter extends Nette\Application\UI\Presenter
 {
-	private Nette\Database\Explorer $database;
+	private PostFacade $facade;
+	/*private Nette\Database\Explorer $database;*/
 
-	public function __construct(Nette\Database\Explorer $database)
+	public function __construct(PostFacade $facade)
 	{
-		$this->database = $database;
+		$this->facade = $facade;
 	}
 
 	public function startup(): void
@@ -40,15 +42,11 @@ public function postFormSucceeded(array $data): void
 	$postId = $this->getParameter('postId');
 
 	if ($postId) {
-		$post = $this->database
-			->table('posts')
-			->get($postId);
-		$post->update($data);
+
+		$post = $this->facade->editPost($postId, $data);
 
 	} else {
-		$post = $this->database
-			->table('posts')
-			->insert($data);
+		$post = $this->facade->insertPost($postId, $data);
 	}
 
 	$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
@@ -57,9 +55,8 @@ public function postFormSucceeded(array $data): void
 
 public function renderEdit(int $postId): void
 {
-	$post = $this->database
-		->table('posts')
-		->get($postId);
+	$post = $this->facade->getPostById($postId);
+
 
 	if (!$post) {
 		$this->error('Post not found');
