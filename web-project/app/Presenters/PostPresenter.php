@@ -24,6 +24,11 @@ final class PostPresenter extends Nette\Application\UI\Presenter
 			->table('posts')
 			->get($postId);
 		*/
+		$post = $this->facade
+		->getPostById($postId);
+
+		$this->facade->addView($postId);
+
 		if (!$post) {
 			$this->error('Stránka nebyla nalezena');
 		}

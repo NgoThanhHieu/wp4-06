@@ -14,7 +14,7 @@ final class PostFacade
 		$this->database = $database;
 	}
 
-	public function getPublicArticles()
+	public function getPublicArticles()/* metoda*/
 	{
 		return $this->database
 			->table('posts')
@@ -26,7 +26,7 @@ final class PostFacade
 	{
 		$post = $this->database
 			->table('posts')
-			->get($postId);
+			->get($postId);/* parametry ($postId) */
 
 		return $post;
 	}
@@ -70,6 +70,30 @@ final class PostFacade
 		return $post;
 	}
 
+	public function addView(int $postId)
+	{
+		$currentViews = $this->database
+		->table('posts')
+		->get($postId)
+		->views_count;
+		$currentViews++;
+		
+		bdump($currentViews);
 
+		$data['views_count'] = $currentViews;/*pole -> asociativní pole */
+		$this->database
+		->table('posts')
+		->get($postId)
+		->update($data);
+
+	}
 
 }
+/*  1.Controler(Presenter)-Post,Homepage, Sign, Error, Edit
+	2.View (*.latte)
+	3.Model (PostFacade)
+	
+
+	/post/show/
+	/edit/create/ 
+*/

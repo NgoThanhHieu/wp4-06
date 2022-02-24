@@ -8,6 +8,7 @@
 		<h2>{$post->title}</h2>
 
 		<div>{$post->content|truncate:256}</div>
+		<div>views:{$post->views_count}</div>
 	</div>
 	{/foreach}
 	<h2><a n:href="Post:show $post->id">{$post->title}</a></h2>

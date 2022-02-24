@@ -46,7 +46,7 @@ public function postFormSucceeded(array $data): void
 		$post = $this->facade->editPost($postId, $data);
 
 	} else {
-		$post = $this->facade->insertPost($postId, $data);
+		$post = $this->facade->insertPost($data);
 	}
 
 	$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
