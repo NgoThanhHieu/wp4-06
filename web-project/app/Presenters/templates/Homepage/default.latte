@@ -6,9 +6,10 @@
 		<div class="date">{$post->created_at|date:'F j, Y'}</div>
 
 		<h2>{$post->title}</h2>
-
+		<div>views (Sledujicí) :{$post->views_count}</div>
+		
 		<div>{$post->content|truncate:256}</div>
-		<div>views:{$post->views_count}</div>
+
 	</div>
 	{/foreach}
 	<h2><a n:href="Post:show $post->id">{$post->title}</a></h2>
