@@ -4,11 +4,15 @@
 
 <div class="date">{$post->created_at|date:'F j, Y'}</div>
 
+<div>views : {$post->views_count}</div>
+
 <h1 n:block="title">{$post->title}</h1>
+
+<h2>Komentáře</h2>
 
 <div class="post">{$post->content}</div>
 
-<h2>Komentáře</h2>
+
 
 <div class="comments">
 	{foreach $comments as $comment}
