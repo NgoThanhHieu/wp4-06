@@ -5,7 +5,18 @@
 	<div class="post">
 		<div class="date">{$post->created_at|date:'F j, Y'}</div>
 
+
+
 	<h2><a n:href="Post:show $post->id">{$post->title}</a></h2>
+
+		{*<img src="{$basePath}/{$post->image}" alt="Obrázek k článku {$post->title}" width='300'>*}
+
+	{if}
+		<img src="{$basePath}/{$post->image}">
+		{else}
+		<img src="{$basePath}/no-image-png-2.png">
+		{/if}
+
 		<div>views : {$post->views_count}</div>
 		
 		<div>{$post->content|truncate:256}</div>

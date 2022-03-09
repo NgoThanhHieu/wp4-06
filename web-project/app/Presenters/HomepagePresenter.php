@@ -18,7 +18,7 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 	public function __construct(PostFacade $facade, /*UserFacade $userFacade*/)
 	{
 		$this->facade = $facade;
-		$this->userFacade = $userFacade;
+		#$this->userFacade = $userFacade;
 	}
 
 	public function renderDefault(): void

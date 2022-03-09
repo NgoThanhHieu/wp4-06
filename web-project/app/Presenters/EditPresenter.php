@@ -31,22 +31,32 @@ protected function createComponentPostForm(): Form
 		->setRequired();
 	$form->addTextArea('content', 'Obsah:')
 		->setRequired();
-
+	$form->addUpload('image', 'Soubor')
+		->setRequired()
+		->addRule(Form::IMAGE, 'Thumbnail must be JPEG, PNG or GIF');
 	$form->addSubmit('send', 'Uložit a publikovat');
 	$form->onSuccess[] = [$this, 'postFormSucceeded'];
 
 	return $form;
 }
-public function postFormSucceeded(array $data): void
+public function postFormSucceeded($form, $data): void
 {
 	$postId = $this->getParameter('postId');
-
+	if (filesize($data->image->size) > 0) {
+		if ($data->image->isOk()) {
+			$data->image->move('upload/' . $data->image->getSanitizedName());
+			$data['image'] = ('upload/' . $data->image->getSanitizedName());
+		}
+	} else {
+		$this->flashMessage('Soubor nebyl přidán', 'failed');
+		//$this->redirect('this');
+	}
 	if ($postId) {
 
-		$post = $this->facade->editPost($postId, $data);
+		$post = $this->facade->editPost($postId, (array) $data);
 
 	} else {
-		$post = $this->facade->insertPost($data);
+		$post = $this->facade->insertPost((array) $data);
 	}
 
 	$this->flashMessage('Příspěvek byl úspěšně publikován.', 'success');
