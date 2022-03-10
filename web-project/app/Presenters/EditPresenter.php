@@ -42,7 +42,7 @@ protected function createComponentPostForm(): Form
 public function postFormSucceeded($form, $data): void
 {
 	$postId = $this->getParameter('postId');
-	if (filesize($data->image->size) > 0) {
+	if (true) {
 		if ($data->image->isOk()) {
 			$data->image->move('upload/' . $data->image->getSanitizedName());
 			$data['image'] = ('upload/' . $data->image->getSanitizedName());
@@ -51,6 +51,7 @@ public function postFormSucceeded($form, $data): void
 		$this->flashMessage('Soubor nebyl přidán', 'failed');
 		//$this->redirect('this');
 	}
+	bdump($data);
 	if ($postId) {
 
 		$post = $this->facade->editPost($postId, (array) $data);

@@ -7,8 +7,16 @@
 <div>views : {$post->views_count}</div>
 
 <h1 n:block="title">{$post->title}</h1>
+<div class="row">
+<div class="post col-8 ">
+	{if $post->image}
+    {* obrázek existuje *}
+    	<img class="float-start d-block mr-3" src="{$basePath}/{$post->image}">
+	{else}
+	{* obrázek nemá příspěvek *}
 
-<img src="{$basePath}/{$post->image}" alt="Obrázek k článku {$post->title}" width='300'>
+    	<img class="float-start d-block mr-3" src="{$basePath}/upload/no-image-png-2.png">
+	{/if}
 
 <h2>Komentáře</h2>
 
@@ -24,7 +32,8 @@
 
 		<div>{$comment->content}</div>
 	{/foreach}
-
+</div>
+</div>
 </div>
 <a n:href="Edit:edit $post->id" n:if="$user->isLoggedIn()">Upravit příspěvek</a>
 <h2>Nový Komentář</h2>

@@ -1,8 +1,8 @@
 {block content}
 	<h1 n:block="title">Hate Kuba blog</h1>
-
+ <div n:class="row">
 	{foreach $posts as $post}
-	<div class="post">
+	<div class="post col-12 col-md-3 border border-primary rounded-3 pb-3 ">
 		<div class="date">{$post->created_at|date:'F j, Y'}</div>
 
 
@@ -10,19 +10,23 @@
 	<h2><a n:href="Post:show $post->id">{$post->title}</a></h2>
 
 		{*<img src="{$basePath}/{$post->image}" alt="Obrázek k článku {$post->title}" width='300'>*}
+<div class="px-2"> 
+	{if file_exists($post->image)}
+    {* obrázek existuje *}
+    	<img class="img-fluid" src="{$basePath}/{$post->image}" >
+	{else}
+	{* obrázek nemá příspěvek *}
 
-	{if}
-		<img src="{$basePath}/{$post->image}">
-		{else}
-		<img src="{$basePath}/no-image-png-2.png">
-		{/if}
+    	<img class="img-fluid" src="{$basePath}/upload/no-image-png-2.png" >
+	{/if}
 
 		<div>views : {$post->views_count}</div>
 		
 		<div>{$post->content|truncate:256}</div>
-
+	<a class="btn btn-primary" n:href="Post:show $post->id"> </a>
+	</div>
 	</div>
 	{/foreach}
-
+</div>
 	<a n:href="Edit:create" n:if="$user->isLoggedIn()">Napsat nový příspěvek</a>
 {/block}
