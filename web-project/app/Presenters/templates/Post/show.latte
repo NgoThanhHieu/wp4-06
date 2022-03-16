@@ -6,7 +6,30 @@
 
 <div>views : {$post->views_count}</div>
 
+<div class="status">{$post->status}
+
+{if $post->status > ARCHIVOVANÝ} 
+
+{elseif $post->status > UZAVŘENÝ}
+	
+{else}
+	
+{/if}
+
+</div>
+
+<div class="comments">
+	{foreach $comments as $comment}
+		<p><b><a href="mailto:{$comment->email}" n:tag-if="$comment->email">
+			{$comment->name}
+		</a></b> napsal:</p>
+
+		<div>{$comment->content}</div>
+	{/foreach}
+</div>
+
 <h1 n:block="title">{$post->title}</h1>
+
 <div class="row">
 <div class="post col-8 ">
 	{if $post->image}
@@ -18,23 +41,10 @@
     	<img class="float-start d-block mr-3" src="{$basePath}/upload/no-image-png-2.png">
 	{/if}
 
+</div>
+</div>
 <h2>Komentáře</h2>
-
 <div class="post">{$post->content}</div>
-
-
-
-<div class="comments">
-	{foreach $comments as $comment}
-		<p><b><a href="mailto:{$comment->email}" n:tag-if="$comment->email">
-			{$comment->name}
-		</a></b> napsal:</p>
-
-		<div>{$comment->content}</div>
-	{/foreach}
-</div>
-</div>
-</div>
 <a n:href="Edit:edit $post->id" n:if="$user->isLoggedIn()">Upravit příspěvek</a>
 <h2>Nový Komentář</h2>
 

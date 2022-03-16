@@ -42,6 +42,13 @@ protected function createComponentPostForm(): Form
 	$form->addUpload('image', 'Soubor')
 		->setRequired()
 		->addRule(Form::IMAGE, 'Thumbnail must be JPEG, PNG or GIF');
+	$statuses = [
+            'OPEN' => 'OTEVŘENÝ',
+            'CLOSED' => 'UZAVŘENÝ',
+            'ARCHIVED' => 'ARCHIVOVANÝ'
+        ];
+    $form->addSelect('status', 'Stav:', $statuses)
+        ->setDefaultValue('OPEN');
 	$form->addSubmit('send', 'Uložit a publikovat');
 	$form->onSuccess[] = [$this, 'postFormSucceeded'];
 
