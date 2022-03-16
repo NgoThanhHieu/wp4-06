@@ -24,6 +24,14 @@ final class EditPresenter extends Nette\Application\UI\Presenter
 	}
 }
 
+public function handleDeleteImage(int $postId)
+{
+	$data['image'] = null;
+	$this->facade->editPost($postId, $data);
+	$this->flashMessage('Obrázek je smazán');
+	//$this->redirect('Post:show', $postId);
+}
+
 protected function createComponentPostForm(): Form
 {
 	$form = new Form;
@@ -48,6 +56,7 @@ public function postFormSucceeded($form, $data): void
 			$data['image'] = ('upload/' . $data->image->getSanitizedName());
 		}
 	} else {
+		unset($data->image);
 		$this->flashMessage('Soubor nebyl přidán', 'failed');
 		//$this->redirect('this');
 	}
@@ -75,6 +84,8 @@ public function renderEdit(int $postId): void
 
 	$this->getComponent('postForm')
 		->setDefaults($post->toArray());
+
+	$this->template->post = $post;
 }
 
 }

@@ -11,7 +11,7 @@
 
 		{*<img src="{$basePath}/{$post->image}" alt="Obrázek k článku {$post->title}" width='300'>*}
 <div class="px-2"> 
-	{if file_exists($post->image)}
+	{if ($post->image)}
     {* obrázek existuje *}
     	<img class="img-fluid" src="{$basePath}/{$post->image}" >
 	{else}
@@ -23,7 +23,7 @@
 		<div>views : {$post->views_count}</div>
 		
 		<div>{$post->content|truncate:256}</div>
-	<a class="btn btn-primary" n:href="Post:show $post->id"> </a>
+	<a class="btn btn-primary" n:href="Post:show $post->id">Více</a>
 	</div>
 	</div>
 	{/foreach}

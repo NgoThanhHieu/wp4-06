@@ -2,3 +2,6 @@
 <h1>Upravit příspěvek</h1>
 
 {control postForm}
+{if $post->image}
+<a n:href="deleteImage! $post->id">Smazat Obrázek</a>
+{/if}
