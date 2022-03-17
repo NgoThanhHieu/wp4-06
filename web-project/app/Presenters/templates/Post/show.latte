@@ -6,14 +6,13 @@
 
 <div>views : {$post->views_count}</div>
 
-<div class="status">{$post->status}
-
-{if $post->status > ARCHIVOVANÝ} 
-
-{elseif $post->status > UZAVŘENÝ}
-	
+<p>{$post->status }</p>
+{if $post->status == ARCHIVOVANÝ} 
+ 	<h2> tenhle příspěvek je ARCHIVOVÁNÝ</h2>
+{elseif $post->status == 'CLOSED' && !$user->isLoggedIn()}
+	<h2>Přihlaste se</h2>
 {else}
-	
+		
 {/if}
 
 </div>

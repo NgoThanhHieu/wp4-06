@@ -2,6 +2,7 @@
 	<h1 n:block="title">Hate Kuba blog</h1>
  <div n:class="row">
 	{foreach $posts as $post}
+	{if $post->status  !='ARCHIVED'}
 	<div class="post col-12 col-md-3 border border-primary rounded-3 pb-3 ">
 		<div class="date">{$post->created_at|date:'F j, Y'}</div>
 
@@ -26,7 +27,7 @@
 	<a class="btn btn-primary" n:href="Post:show $post->id">Více</a>
 	</div>
 	</div>
-	{/foreach}
+	{/if} {/foreach}
 </div>
 	<a n:href="Edit:create" n:if="$user->isLoggedIn()">Napsat nový příspěvek</a>
 {/block}

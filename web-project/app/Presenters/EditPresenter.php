@@ -7,6 +7,7 @@ use App\Model\PostFacade;
 
 final class EditPresenter extends Nette\Application\UI\Presenter
 {
+	private $statuses;
 	private PostFacade $facade;
 	/*private Nette\Database\Explorer $database;*/
 
