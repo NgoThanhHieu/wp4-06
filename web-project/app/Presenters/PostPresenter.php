@@ -15,15 +15,20 @@ final class PostPresenter extends Nette\Application\UI\Presenter
 		$this->facade = $facade;
 	}
 
+	/*public function actionShow(int $post): void
+	{
+		
+	}*/
+	
 	public function renderShow(int $postId): void
 	{
 		$post = $this->facade
 				->getPostById($postId);
-		/*
-		$this->database
-			->table('posts')
-			->get($postId);
-		*/
+/*
+	$this->database
+		>table('posts')
+		->get($postId);
+*/
 		$post = $this->facade
 		->getPostById($postId);
 
