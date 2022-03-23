@@ -15,10 +15,15 @@ final class PostPresenter extends Nette\Application\UI\Presenter
 		$this->facade = $facade;
 	}
 
-	/*public function actionShow(int $post): void
+	public function actionShow(int $postId): void
 	{
-		
-	}*/
+		$post = $this->facade->getPostById($postId);
+		$this->getUser()->isLoggedIn();
+		if (!$this->getUser()->isLoggedIn() && ($post->status == 'ARCHIVED' )) {
+		$this->flashMessage('Nemáš právo vidět archived, kámo!');
+		$this->redirect('Sign:in');
+		 }
+	}
 	
 	public function renderShow(int $postId): void
 	{

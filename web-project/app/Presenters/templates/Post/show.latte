@@ -44,8 +44,9 @@
 
 	<div class="post">{$post->content}</div>
 	<a n:href="Edit:edit $post->id" n:if="$user->isLoggedIn()">Upravit příspěvek</a>
-
+	{if ($post->status == 'OPEN') || ($post->status == 'CLOSED' && $user->isLoggedIn())}
 <h2>Nový Komentář</h2>
 
 {control commentForm}
-{else} {/if}
+{else } {/if}
+{else } <div class="alert alert-primary" role="alert">Nemáš právo Komentovat</div> {/if}
