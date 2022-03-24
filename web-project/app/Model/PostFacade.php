@@ -88,6 +88,11 @@ final class PostFacade
 
 	}
 
+	/*public	function (int $postId)
+	{
+
+	}*/
+
 }
 /*  1.Controler(Presenter)-Post,Homepage, Sign, Error, Edit
 	2.View (*.latte)
