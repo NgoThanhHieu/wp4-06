@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Model;
 
 use Nette;
@@ -35,11 +36,10 @@ final class PostFacade
 	{
 		return $this->database
 			->table('comments')
-			->where('post_id',$postId);
-
+			->where('post_id', $postId);
 	}
 
-	public function addComment(int $postId,\stdClass $data)
+	public function addComment(int $postId, \stdClass $data)
 	{
 
 		$this->database->table('comments')->insert([
@@ -48,7 +48,6 @@ final class PostFacade
 			'email' => $data->email,
 			'content' => $data->content,
 		]);
-
 	}
 
 	public function editPost(int $postId, array $data)
@@ -56,42 +55,67 @@ final class PostFacade
 		$post = $this->database
 			->table('posts')
 			->get($postId);
-		$post->update($data);	
+		$post->update($data);
 
 		return $post;
 	}
 
 	public function insertPost(array $data)
 	{
-		$post =$this->database
+		$post = $this->database
 			->table('posts')
 			->insert($data);
-			
+
 		return $post;
 	}
 
 	public function addView(int $postId)
 	{
 		$currentViews = $this->database
-		->table('posts')
-		->get($postId)
-		->views_count;
+			->table('posts')
+			->get($postId)
+			->views_count;
 		$currentViews++;
-		
+
 		bdump($currentViews);
 
 		$data['views_count'] = $currentViews;/*pole -> asociativní pole */
 		$this->database
-		->table('posts')
-		->get($postId)
-		->update($data);
-
+			->table('posts')
+			->get($postId)
+			->update($data);
 	}
-
-	/*public	function (int $postId)
+	public function updateRating(int $userId, int $postId, int $like)
 	{
+		$ratingRow = $this->database
+			->table('rating')
+			->get([
+				'user_id' => $userId,
+				'post_id' => $postId,
+			]);
 
-	}*/
+		if ($ratingRow != null) {
+			$this->database
+				->query(
+					'UPDATE rating SET like_value = ? WHERE user_id = ? AND post_id = ?',
+					$like,
+					$userId,
+					$postId
+				);
+		} else {
+			$this->database
+				->table('rating')
+				->insert([
+					'user_id' => $userId,
+					'post_id' => $postId,
+					'like' => $like
+				]);
+		}
+	}
+	// nápověda databazový dotaz na tabulku rating
+
+	// nejprve zjistit, zda už řádek existuje restrikce where user_id = $userId a post_id = $postId 
+	// na základě výsledku zavolat update nebo insert
 
 }
 /*  1.Controler(Presenter)-Post,Homepage, Sign, Error, Edit

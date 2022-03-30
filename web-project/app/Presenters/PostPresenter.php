@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Presenters;
 
 use Nette;
@@ -19,23 +20,23 @@ final class PostPresenter extends Nette\Application\UI\Presenter
 	{
 		$post = $this->facade->getPostById($postId);
 		$this->getUser()->isLoggedIn();
-		if (!$this->getUser()->isLoggedIn() && ($post->status == 'ARCHIVED' )) {
-		$this->flashMessage('Nemáš právo vidět archived, kámo!');
-		$this->redirect('Sign:in');
-		 }
+		if (!$this->getUser()->isLoggedIn() && ($post->status == 'ARCHIVED')) {
+			$this->flashMessage('Nemáš právo vidět archived, kámo!');
+			$this->redirect('Sign:in');
+		}
 	}
-	
+
 	public function renderShow(int $postId): void
 	{
 		$post = $this->facade
-				->getPostById($postId);
-/*
+			->getPostById($postId);
+		/*
 	$this->database
 		>table('posts')
 		->get($postId);
 */
 		$post = $this->facade
-		->getPostById($postId);
+			->getPostById($postId);
 
 		$this->facade->addView($postId);
 
@@ -44,34 +45,44 @@ final class PostPresenter extends Nette\Application\UI\Presenter
 		}
 		$this->template->post = $post;
 		$this->template->comments = $this->facade->getComments($postId);
-
 	}
 
-protected function createComponentCommentForm(): Form
-{
-	$form = new Form; // means Nette\Application\UI\Form
+	protected function createComponentCommentForm(): Form
+	{
+		$form = new Form; // means Nette\Application\UI\Form
 
-	$form->addText('name', 'Jméno:')
-		->setRequired();
+		$form->addText('name', 'Jméno:')
+			->setRequired();
 
-	$form->addEmail('email', 'E-mail:');
+		$form->addEmail('email', 'E-mail:');
 
-	$form->addTextArea('content', 'Komentář:')
-		->setRequired();
+		$form->addTextArea('content', 'Komentář:')
+			->setRequired();
 
-	$form->addSubmit('send', 'Publikovat komentář');
-	$form->onSuccess[] = [$this, 'commentFormSucceeded'];
-	return $form;
+		$form->addSubmit('send', 'Publikovat komentář');
+		$form->onSuccess[] = [$this, 'commentFormSucceeded'];
+		return $form;
+	}
 
+	public function commentFormSucceeded(\stdClass $data): void
+	{
+		$postId = $this->getParameter('postId');
+
+		$this->facade->addComment($postId, $data);
+		$this->flashMessage('Děkuji za komentář', 'success');
+		$this->redirect('this');
+	}
+
+	public function handleLike(int $like, $postId, $userId)
+	{
+		if ($this->getUser()
+			->isLoggedIn()
+		) {
+			$userId = $this->getUser()->getId();
+			$this->facade->updateRating($userId, $postId, $like);
+			$this->redirect('this');
+		}
+		// budete volat PostFacade metodu updateRating
+
+	}
 }
-
-public function commentFormSucceeded(\stdClass $data): void
-{
-	$postId = $this->getParameter('postId');
-
-	$this->facade->addComment($postId, $data);
-	$this->flashMessage('Děkuji za komentář', 'success');
-	$this->redirect('this');
-}
-}
-?>

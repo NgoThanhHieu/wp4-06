@@ -30,5 +30,3 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 			->limit(5);
 	}
 }
-
-

@@ -1,6 +1,6 @@
 {block content}
 
-	<p><a n:href="Homepage:default">← zpět</a></p>
+	<p><a n:href="Homepage:default" class="btn btn-primary"> zpět</a></p>
 
 	{if ( $post->status == 'OPEN') || ($post->status == 'CLOSED') || ($post->status == 'ARCHIVED' && $user->isLoggedIn())} 
 	
@@ -10,8 +10,9 @@
 
 		<div>views : {$post->views_count}</div>
 
-		<p>{$post->status }</p>
+		<p>{$post->status }</p>	
 
+		
 
 {foreach $comments as $comment}
 	<p><b><a href="mailto:{$comment->email}" n:tag-if="$comment->email">
@@ -26,8 +27,8 @@
 <h1 n:block="title">{$post->title}</h1>
 
 
-	<div class="row">
-	<div class="post col-8 ">
+	<div class="row ">
+	<div class="post col-8  ">
 	{if $post->image}
 {* obrázek existuje *}
     	<img class="float-start d-block mr-3" src="{$basePath}/{$post->image}">
@@ -36,16 +37,18 @@
 
     	<img class="float-start d-block mr-3" src="{$basePath}/upload/no-image-png-2.png">
 	{/if}
+
 	</div>
 	</div>
+		<br><a n:href="Like! $post->id,1" class="btn btn-success" >Líbí se mi!</a>
+		<a n:href="Like! $post->id,0" class="btn btn-danger">Nelíbí se mi!</a><br> {*! znamená že tam je handle takže nemusíme psát "handleLike"*}
 
-
-<h2>Komentáře</h2>
+		<br><a n:href="Edit:edit $post->id" n:if="$user->isLoggedIn()" class="btn btn-dark">Upravit příspěvek</a><br>
+	{if ($post->status == 'OPEN') || ($post->status == 'CLOSED' && $user->isLoggedIn())}
+	<h2>Komentáře</h2>
 
 	<div class="post">{$post->content}</div>
-	<a n:href="Edit:edit $post->id" n:if="$user->isLoggedIn()">Upravit příspěvek</a>
-	{if ($post->status == 'OPEN') || ($post->status == 'CLOSED' && $user->isLoggedIn())}
-<h2>Nový Komentář</h2>
+<br><h2>Nový Komentář</h2><br>
 
 {control commentForm}
 {else } {/if}
