@@ -28,8 +28,7 @@ final class PostPresenter extends Nette\Application\UI\Presenter
 
 	public function renderShow(int $postId): void
 	{
-		$post = $this->facade
-			->getPostById($postId);
+
 		/*
 	$this->database
 		>table('posts')
@@ -45,6 +44,8 @@ final class PostPresenter extends Nette\Application\UI\Presenter
 		}
 		$this->template->post = $post;
 		$this->template->comments = $this->facade->getComments($postId);
+		$this->template->like = $this->facade
+		->getUserRating(($postId), $this->getUser()->getId());
 	}
 
 	protected function createComponentCommentForm(): Form
@@ -73,14 +74,15 @@ final class PostPresenter extends Nette\Application\UI\Presenter
 		$this->redirect('this');
 	}
 
-	public function handleLike(int $like, $postId, $userId)
+	public function handleLike( int $like,int $postId)
 	{
 		if ($this->getUser()
 			->isLoggedIn()
 		) {
 			$userId = $this->getUser()->getId();
 			$this->facade->updateRating($userId, $postId, $like);
-			$this->redirect('this');
+			#$this->redirect('this');
+			$this->redrawControl("likee");
 		}
 		// budete volat PostFacade metodu updateRating
 

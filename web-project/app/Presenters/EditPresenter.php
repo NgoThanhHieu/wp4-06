@@ -31,6 +31,7 @@ final class EditPresenter extends Nette\Application\UI\Presenter
 		$data['image'] = null;
 		$this->facade->editPost($postId, $data);
 		$this->flashMessage('Obrázek je smazán');
+		$this->redrawControl('image');
 		//$this->redirect('Post:show', $postId);
 	}
 
@@ -42,7 +43,6 @@ final class EditPresenter extends Nette\Application\UI\Presenter
 		$form->addTextArea('content', 'Obsah:')
 			->setRequired();
 		$form->addUpload('image', 'Soubor')
-			->setRequired()
 			->addRule(Form::IMAGE, 'Thumbnail must be JPEG, PNG or GIF');
 		$statuses = [
 			'OPEN' => 'OTEVŘENÝ',
@@ -59,7 +59,7 @@ final class EditPresenter extends Nette\Application\UI\Presenter
 	public function postFormSucceeded($form, $data): void
 	{
 		$postId = $this->getParameter('postId');
-		if (true) {
+		if ($data->image->hasFile()) {
 			if ($data->image->isOk()) {
 				$data->image->move('upload/' . $data->image->getSanitizedName());
 				$data['image'] = ('upload/' . $data->image->getSanitizedName());
@@ -91,7 +91,7 @@ final class EditPresenter extends Nette\Application\UI\Presenter
 		}
 
 		$this->getComponent('postForm')
-			->setDefaults($post->toArray());
+			->setDefault($post->toArray());
 
 		$this->template->post = $post;
 	}

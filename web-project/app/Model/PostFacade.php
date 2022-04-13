@@ -77,7 +77,7 @@ final class PostFacade
 			->views_count;
 		$currentViews++;
 
-		bdump($currentViews);
+		bdump($currentViews);/*vypíše to chybu*/
 
 		$data['views_count'] = $currentViews;/*pole -> asociativní pole */
 		$this->database
@@ -91,7 +91,7 @@ final class PostFacade
 			->table('rating')
 			->get([
 				'user_id' => $userId,
-				'post_id' => $postId,
+				'post_id' => $postId
 			]);
 
 		if ($ratingRow != null) {
@@ -101,16 +101,33 @@ final class PostFacade
 					$like,
 					$userId,
 					$postId
+
 				);
-		} else {
-			$this->database
-				->table('rating')
-				->insert([
-					'user_id' => $userId,
-					'post_id' => $postId,
-					'like' => $like
-				]);
+			} else {
+				$this->database
+					->table('rating')
+					->insert([
+						'user_id' => $userId,
+						'post_id' => $postId,
+						'like_value' => $like
+					]);
+			}
 		}
+		
+	public function getUserRating(int $userId, int $postId,)
+	{
+		$like = $this->database
+			->table('rating')
+			->where([
+				'user_id' => $userId,
+				'post_id' => $postId,
+			]);
+
+		if ($like->count() == 0) {
+			return null;
+		}
+
+        return $like->fetch()->like_value;
 	}
 	// nápověda databazový dotaz na tabulku rating
 

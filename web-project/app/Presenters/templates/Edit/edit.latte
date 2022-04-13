@@ -2,6 +2,7 @@
 <h1>Upravit příspěvek</h1>
 
 {control postForm}
+{snippet image}
 {if $post->image}
 <br><a n:href="deleteImage! $post->id" class="btn btn-primary">Smazat Obrázek</a><br>
-{/if}
+{/if}{/snippet}

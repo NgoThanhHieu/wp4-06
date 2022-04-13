@@ -1,36 +1,44 @@
 {block content}
-	<h1 n:block="title">Hate Kuba blog</h1>
- 		<div n:class="row">
+
+	<h1 n:block="title " class="text-center">Hate Kuba blog</h1>
+
+
+<div class="row justify-content-center">
 	{foreach $posts as $post}
 	{if $user->isLoggedIn() || ($post->status != 'ARCHIVED')}
  
  {* Pokud uživatel není přihlašený tak se příspěk neukáže*}
+	<div class="post col-12 col-md-3 m-3 border border-primary rounded-3 pb-3 ">
 
-<div class="post col-12 col-md-3 border border-primary rounded-3 pb-3 ">
-		<div class="date">{$post->created_at|date:'F j, Y'}</div>
+				<div class="date">{$post->created_at|date:'F j, Y'}</div>
 
-	<h3>{$post->status}</h3>
+				<h3>{$post->status}</h3>
 
-	<h2><a n:href="Post:show $post->id">{$post->title}</a></h2>
+				<h2><a n:href="Post:show $post->id">{$post->title}</a></h2>
 
 {*<img src="{$basePath}/{$post->image}" alt="Obrázek k článku {$post->title}" width='300'>*}
-		<div class="px-2"> 
-	{if ($post->image)}
+			<div class="px-4"> 
+				{if ($post->image)}
 {* obrázek existuje *}
-    	<img class="img-fluid" src="{$basePath}/{$post->image}" >
-	{else}
+    			<img class="img-fluid" src="{$basePath}/{$post->image}" >
+				{else}
 {* obrázek nemá příspěvek *}
 
-    	<img class="img-fluid" src="{$basePath}/upload/no-image-png-2.png" >
-	{/if}
+    			<img class="img-fluid" src="{$basePath}/upload/no-image-png-2.png" >
+				{/if}
 
-		<div>views : {$post->views_count}</div>
+				<div>views : {$post->views_count}</div>
 		
-		<div>{$post->content|truncate:256}</div>
-	<a class="btn btn-primary" n:href="Post:show $post->id">Více</a>
-		</div>
-		</div>
+				<div>{$post->content|truncate:256}</div>
+			<a class="btn btn-primary" n:href="Post:show $post->id">Více</a>
+			</div>
+	</div>
 	{/if} {/foreach}
-		</div>
-	<br><a n:href="Edit:create" n:if="$user->isLoggedIn()" class="btn btn-primary">Napsat nový příspěvek</a><br>
+</div>
+
+	
+	<br>
+	<a n:href="Edit:create" n:if="$user->isLoggedIn()" class="btn btn-primary ">Napsat nový příspěvek</a>
+	<br>
+
 {/block}

@@ -20,10 +20,16 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 		$this->facade = $facade;
 		#$this->userFacade = $userFacade;
 	}
+	
+	public function handleShowRandomnumber() {
+		$this->template->randomnumber = rand(1, 100);
+		$this->redrawControl();
+	}
 
 	public function renderDefault(): void
 	{
 		#$this->userFacade->add("Admin", "admin@ossp.cz" , "secret");
+		$this->template->refreshNumber = rand(1,55);
 
 		$this->template->posts = $this->facade
 			->getPublicArticles()
