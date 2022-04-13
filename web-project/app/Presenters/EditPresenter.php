@@ -91,7 +91,7 @@ final class EditPresenter extends Nette\Application\UI\Presenter
 		}
 
 		$this->getComponent('postForm')
-			->setDefault($post->toArray());
+			->setDefaults($post->toArray());
 
 		$this->template->post = $post;
 	}
