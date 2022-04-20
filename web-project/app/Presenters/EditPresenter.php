@@ -95,4 +95,10 @@ final class EditPresenter extends Nette\Application\UI\Presenter
 
 		$this->template->post = $post;
 	}
+	public function handleDeletePost(int $postId)
+	{
+		$this->facade->deletePost($postId);
+		$this->flashMessage('Příspěvek byl smazán');
+		$this->redirect('Homepage:default');
+	}
 }

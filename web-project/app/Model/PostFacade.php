@@ -129,6 +129,22 @@ final class PostFacade
 
         return $like->fetch()->like_value;
 	}
+	public function deletePost(int $postId)
+	{
+		
+		$this->database
+			->table('comments')
+			->where(['post_id' => $postId])
+			->delete();
+		$this->database
+			->table('rating')
+			->where(['post_id' => $postId]) 
+			->delete();
+			$this->database
+			->table('posts')
+			->get($postId)
+			->delete();
+	}
 	// nápověda databazový dotaz na tabulku rating
 
 	// nejprve zjistit, zda už řádek existuje restrikce where user_id = $userId a post_id = $postId 

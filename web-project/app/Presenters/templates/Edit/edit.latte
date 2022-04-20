@@ -6,4 +6,6 @@
 {if $post->image}
 <img class="float-start d-block mr-3" src="{$basePath}/{$post->image}">
 <br><a n:href="deleteImage! $post->id" class=" ajax btn btn-primary">Smazat Obrázek</a><br>
+
 {/if}{/snippet}
+<a n:href="deletePost! $post->id" class="btn btn-danger">Smazat Příspěvek</a>
