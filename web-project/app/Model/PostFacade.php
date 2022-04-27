@@ -15,6 +15,18 @@ final class PostFacade
 		$this->database = $database;
 	}
 
+	public function findPublishedArticles(int $limit, int $offset): Nette\Database\ResultSet
+	{
+		return $this->database->query('
+			SELECT * FROM posts
+			WHERE created_at < ?
+			ORDER BY created_at DESC
+			LIMIT ?
+			OFFSET ?',
+			new \DateTime, $limit, $offset
+		);
+	}
+
 	public function getPublicArticles()/* metoda*/
 	{
 		return $this->database
@@ -144,6 +156,11 @@ final class PostFacade
 			->table('posts')
 			->get($postId)
 			->delete();
+	}
+
+	public function getPublishedArticlesCount(): int
+	{
+		return $this->database->fetchField('SELECT COUNT(*) FROM posts WHERE created_at < ?', new \DateTime);
 	}
 	// nápověda databazový dotaz na tabulku rating
 
