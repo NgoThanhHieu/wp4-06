@@ -4,29 +4,11 @@
 
 	{if ( $post->status == 'OPEN') || ($post->status == 'CLOSED') || ($post->status == 'ARCHIVED' && $user->isLoggedIn())} 
 	
-	<div class="comments">
-
-		<div class="date">{$post->created_at|date:'F j, Y'}</div>
-
-		<div>views : {$post->views_count}</div>
-
-		<p>{$post->status }</p>	
-
-		
-
-{foreach $comments as $comment}
-	<p><b><a href="mailto:{$comment->email}" n:tag-if="$comment->email">
-			{$comment->name}
-			</a></b> napsal:</p>
-
-	<div>{$comment->content}</div>
-{/foreach}
-	</div>
 
 
 <h1 n:block="title">{$post->title}</h1>
 
-
+<br>
 	<div class="row ">
 	<div class="post col-8  ">
 	{if $post->image}
@@ -40,7 +22,8 @@
 
 	</div>
 	</div>
-<br>
+</br>
+
 {snippet likee}
 	{if $user->isLoggedIn()}
             <a n:href="like! 1, $post->id" class="ajax btn btn-{if $like == 1}success{else}secondary{/if}"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-emoji-heart-eyes-fill" viewBox="0 0 16 16">
@@ -53,14 +36,32 @@
 		  
     {/if}
 {/snippet }
-	</br>
+
 			{*! znamená že tam je handle takže nemusíme psát "handleLike"*}
 
-		<br><a n:href="Edit:edit $post->id" n:if="$user->isLoggedIn()" class="btn btn-dark">Upravit příspěvek</a><br>
-	{if ($post->status == 'OPEN') || ($post->status == 'CLOSED' && $user->isLoggedIn())}
-	<h2>Komentáře</h2>
+		<br><a n:href="Edit:edit $post->id" n:if="$user->isLoggedIn()" class="btn btn-dark">Upravit příspěvek</a></br>
 
-	<div class="post">{$post->content}</div>
+	{if ($post->status == 'OPEN') || ($post->status == 'CLOSED' && $user->isLoggedIn())}
+
+
+{foreach $comments as $comment}
+	<h2>Komentáře</h2>
+	<div class="comments">
+
+		<div class="date">{$post->created_at|date:'F j, Y'}</div>
+
+		<div>views : {$post->views_count}</div>
+
+		<p>{$post->status }</p>	
+	<p><b><a href="mailto:{$comment->email}" n:tag-if="$comment->email">
+			{$comment->name}
+			</a></b> napsal:</p>
+
+	<div>{$comment->content}</div>
+					<br><a n:href="DeleteComment! $comment->id" n:if="$user->isLoggedIn()" class="btn btn-dark">Smazání komentáře</a></br>
+	</div>
+{/foreach}
+
 <br><h2>Nový Komentář</h2><br>
 
 {control commentForm}

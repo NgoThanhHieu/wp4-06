@@ -167,6 +167,13 @@ final class PostFacade
 	// nejprve zjistit, zda už řádek existuje restrikce where user_id = $userId a post_id = $postId 
 	// na základě výsledku zavolat update nebo insert
 
+	public function getComment(int $commentId)
+	{
+		return $this->database
+			->table('comments')
+			->where(['id' => $commentId]);
+	}
+
 }
 /*  1.Controler(Presenter)-Post,Homepage, Sign, Error, Edit
 	2.View (*.latte)

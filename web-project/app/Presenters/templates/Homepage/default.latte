@@ -1,5 +1,21 @@
 {block content}
+<div class="pagination justify-content-center">
+	{if !$paginator->isFirst()}
+		<a n:href="default, 1">První</a>
+		&nbsp;|&nbsp;
+		<a n:href="default, $paginator->page-1">Předchozí</a>
+		&nbsp;|&nbsp;
+	{/if}
 
+	Stránka {$paginator->getPage()} z {$paginator->getPageCount()}
+
+	{if !$paginator->isLast()}
+		&nbsp;|&nbsp;
+		<a n:href="default, $paginator->getPage() + 1">Další</a>
+		&nbsp;|&nbsp;
+		<a n:href="default, $paginator->getPageCount()">Poslední</a>
+	{/if}
+</div>
 	<h1 n:block="title " class="text-center">Hate Kuba blog</h1>
 
 
@@ -34,23 +50,6 @@
 			</div>
 	</div>
 	{/if} {/foreach}
-</div>
-<div class="pagination">
-	{if !$paginator->isFirst()}
-		<a n:href="default, 1">První</a>
-		&nbsp;|&nbsp;
-		<a n:href="default, $paginator->page-1">Předchozí</a>
-		&nbsp;|&nbsp;
-	{/if}
-
-	Stránka {$paginator->getPage()} z {$paginator->getPageCount()}
-
-	{if !$paginator->isLast()}
-		&nbsp;|&nbsp;
-		<a n:href="default, $paginator->getPage() + 1">Další</a>
-		&nbsp;|&nbsp;
-		<a n:href="default, $paginator->getPageCount()">Poslední</a>
-	{/if}
 </div>
 
 	<br>

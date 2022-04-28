@@ -74,6 +74,11 @@ final class PostPresenter extends Nette\Application\UI\Presenter
 		$this->redirect('this');
 	}
 
+	public function handleDeleteComment(int $commentId)
+	{	
+		$this->facade->getComment($commentId)->delete();
+	}
+
 	public function handleLike( int $like,int $postId)
 	{
 		if ($this->getUser()
@@ -87,4 +92,5 @@ final class PostPresenter extends Nette\Application\UI\Presenter
 		// budete volat PostFacade metodu updateRating
 
 	}
+
 }
