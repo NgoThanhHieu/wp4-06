@@ -15,8 +15,33 @@
 </head>
 <body>
 
-	<div n:class="container">
+<header class="p-3 bg-dark text-white">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
+        </a>
 
+		<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+		        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+          <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+        </form>
+        </ul>
+
+
+		<div class="text-end">
+    	<a n:href="Homepage:" class="btn btn-outline-light me-2">Hlavní strana</a>
+    	{if $user->isLoggedIn()}
+       	<a n:href="Sign:out" class="btn btn-warning">Odhlásit</a>
+		<a n:href="Sign:change" class="btn btn-danger">Změna hesla</a>
+    	{else}
+			<a n:href="Sign:up" class="btn btn-outline-light me-2">Registrovat</a>
+        	<a n:href="Sign:in" class="btn btn-outline-light me-2">Přihlásit</a>
+    	{/if}
+		</div>
+      </div>
+    </div>
+  </header>
 		<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
 
 		{include content}
@@ -24,19 +49,5 @@
 		{block scripts}
 		<script src="https://nette.github.io/resources/js/3/netteForms.min.js"></script>
 		{/block}
-
-	
-		<ul class="nav" >
-    	<li><a n:href="Homepage:" class="btn btn-primary mx-2">Hlavní strana</a></li>
-    	{if $user->isLoggedIn()}
-       	<li><a n:href="Sign:out" class="btn btn-primary mx-2">Odhlásit</a></li>
-    	{else}
-			<li><a n:href="Sign:up" class="btn btn-primary mx-2">Registrovat</a></li>
-        	<li><a n:href="Sign:in" class="btn btn-primary mx-2">Přihlásit</a></li>
-    	{/if}
-		</ul>
-	</div>
-
-
 </body>
 </html>

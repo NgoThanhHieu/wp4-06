@@ -89,7 +89,6 @@ final class PostFacade
 			->views_count;
 		$currentViews++;
 
-		bdump($currentViews);/*vypíše to chybu*/
 
 		$data['views_count'] = $currentViews;/*pole -> asociativní pole */
 		$this->database

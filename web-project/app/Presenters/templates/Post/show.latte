@@ -1,6 +1,6 @@
 {block content}
-
-	<p><a n:href="Homepage:default" class="btn btn-primary"> zpět</a></p>
+<div>
+	<p><a n:href="Homepage:default" class="btn btn-outline-dark me-1"> zpět</a></p>
 
 	{if ( $post->status == 'OPEN') || ($post->status == 'CLOSED') || ($post->status == 'ARCHIVED' && $user->isLoggedIn())} 
 	
