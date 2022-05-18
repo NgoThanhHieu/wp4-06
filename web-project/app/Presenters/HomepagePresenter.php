@@ -53,4 +53,10 @@ final class HomepagePresenter extends Nette\Application\UI\Presenter
 			->limit(10);
 			*/
 	}
+	public function renderCategory(int $categoryId): void
+	{
+		$posts = $this->facade->getPostsByCategoryId($categoryId);
+
+		$this->template->posts = $posts;
+	}
 }

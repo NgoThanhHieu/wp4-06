@@ -139,6 +139,14 @@ return $this->database->query(
 		return $this->database
 			->table('categories')->get($categoryId);
 	}
+
+	public function getPostsByCategoryId(int $categoryId)
+	{		
+		return $this->database
+			->table('posts')
+			->where('category_id', $categoryId)
+			->order('created_at DESC');
+	}
 	
 	public function getUserRating(int $userId, int $postId,)
 	{
