@@ -49,6 +49,8 @@ final class EditPresenter extends Nette\Application\UI\Presenter
 			'CLOSED' => 'UZAVŘENÝ',
 			'ARCHIVED' => 'ARCHIVOVANÝ'
 		];
+		$categories = $this->facade->getCategories()->fetchPairs('id', 'name');
+		$form->addSelect('category_id', 'Category:', $categories);
 		$form->addSelect('status', 'Stav:', $statuses)
 			->setDefaultValue('OPEN');
 		$form->addSubmit('send', 'Uložit a publikovat');

@@ -17,14 +17,18 @@ final class PostFacade
 
 	public function findPublishedArticles(int $limit, int $offset): Nette\Database\ResultSet
 	{
-		return $this->database->query('
-			SELECT * FROM posts
-			WHERE created_at < ?
-			ORDER BY created_at DESC
-			LIMIT ?
-			OFFSET ?',
-			new \DateTime, $limit, $offset
-		);
+return $this->database->query(
+            '
+            SELECT p.id, p.title, p.content, p.views_count, p.created_at, p.status, p.image,c.id AS category_id, c.name AS category_name  FROM posts p
+            LEFT JOIN categories c ON p.category_id = c.id
+            WHERE created_at < ?
+            ORDER BY created_at DESC
+            LIMIT ?
+            OFFSET ?',
+            new \DateTime,
+            $limit,
+            $offset
+        );
 	}
 
 	public function getPublicArticles()/* metoda*/
@@ -124,7 +128,18 @@ final class PostFacade
 					]);
 			}
 		}
-		
+
+	public function getCategories()
+	{
+		return $this->database
+			->table('categories');
+	}
+	public function getCategory($categoryId)
+	{
+		return $this->database
+			->table('categories')->get($categoryId);
+	}
+	
 	public function getUserRating(int $userId, int $postId,)
 	{
 		$like = $this->database
@@ -170,7 +185,8 @@ final class PostFacade
 	{
 		return $this->database
 			->table('comments')
-			->where(['id' => $commentId]);
+			->where([
+				'id' => $commentId]);
 	}
 
 }

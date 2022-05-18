@@ -1,7 +1,8 @@
 {block content}
 <div>
-	<p><a n:href="Homepage:default" class="btn btn-outline-dark me-1"> zpět</a></p>
-
+<br>
+	<p><a n:href="Homepage:default" class="btn btn-dark me-1"> zpět</a></p>
+</br>
 	{if ( $post->status == 'OPEN') || ($post->status == 'CLOSED') || ($post->status == 'ARCHIVED' && $user->isLoggedIn())} 
 	
 
@@ -10,7 +11,7 @@
 
 <br>
 	<div class="row ">
-	<div class="post col-8  ">
+	<div class="post col-8">
 	{if $post->image}
 {* obrázek existuje *}
     	<img class="float-start d-block mr-3" src="{$basePath}/{$post->image}">
@@ -42,10 +43,11 @@
 		<br><a n:href="Edit:edit $post->id" n:if="$user->isLoggedIn()" class="btn btn-dark">Upravit příspěvek</a></br>
 
 	{if ($post->status == 'OPEN') || ($post->status == 'CLOSED' && $user->isLoggedIn())}
-
-
+	
+  <br><h4>Kategorie: {if $post->category_id}{$category->name}{else} Žádná{/if}</h4> </br>
 {foreach $comments as $comment}
 	<h2>Komentáře</h2>
+
 	<div class="comments">
 
 		<div class="date">{$post->created_at|date:'F j, Y'}</div>
@@ -62,7 +64,7 @@
 	</div>
 {/foreach}
 
-<br><h2>Nový Komentář</h2><br>
+<h2>Nový Komentář</h2>
 
 {control commentForm}
 {else } {/if}
