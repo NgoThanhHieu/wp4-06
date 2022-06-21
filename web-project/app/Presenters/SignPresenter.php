@@ -42,7 +42,7 @@ final class SignPresenter extends Nette\Application\UI\Presenter
 	{
 		$form = new Form;
 		
-		$form->addPassword('password', 'Heslo:')
+		$form->addPassword('password', 'Nový heslo :')
 			->setRequired('Prosím vyplňte nové heslo.');
 
 		$form->onSuccess[] = [$this, 'passwordFormSucceeded'];

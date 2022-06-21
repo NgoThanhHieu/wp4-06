@@ -58,6 +58,7 @@ final class EditPresenter extends Nette\Application\UI\Presenter
 
 		return $form;
 	}
+	
 	public function postFormSucceeded($form, $data): void
 	{
 		$postId = $this->getParameter('postId');
@@ -68,7 +69,7 @@ final class EditPresenter extends Nette\Application\UI\Presenter
 			}
 		} else {
 			unset($data->image);
-			$this->flashMessage('Soubor nebyl přidán', 'failed');
+			$this->flashMessage('Obrázek nebyl přidán', 'failed');
 			//$this->redirect('this');
 		}
 		bdump($data);

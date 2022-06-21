@@ -1,0 +1,40 @@
+
+/*
+.float-container {
+    border: 3px solid #fff;
+    padding: 20px;
+}
+
+.float-child {
+    width: 50%;
+    float: left;
+    padding: 20px;
+
+}  
+
+      /* Carousel styling */
+      #introCarousel,
+      .carousel-inner,
+      .carousel-item,
+      .carousel-item.active {
+        height: 65vh;
+      }
+
+      .carousel-item:nth-child(1) {
+        background-image: url('https://a-static.besthdwallpaper.com/megumi-fushiguro-yuji-itadori-and-nobara-kugisaki-jujutsu-kaisen-wallpaper-2400x600-86238_137.jpg');
+        background-repeat: no-repeat;
+        background-size: auto;
+        background-position: center center;
+      }
+
+      /* Height for devices larger than 576px */
+      @media (min-width: 992px) {
+        #introCarousel {
+          margin-top: -58.59px;
+        }
+      }
+
+      .navbar .nav-link {
+        color: #fff !important;
+      }
+

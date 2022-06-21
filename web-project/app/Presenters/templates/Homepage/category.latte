@@ -1,14 +1,14 @@
 {block content}
-	<h1 n:block="title " class="text-center">Hate Kuba blog</h1>
-
-
+<br><p><a n:href="Homepage:default" class="btn btn-outline-light text-white" style = "background:rgba(12, 110, 253, 0.05) "> zpět</a></p></br>
+	<h1 n:block="title" class="text-center">Jujutsu Kaisen (呪術廻戦)</h1>
+	<h2 n:block="" class="text-center">{$category}</h2>
 <div class="row justify-content-center">
 	{foreach $posts as $post}
 	{if $user->isLoggedIn() || ($post->status != 'ARCHIVED')}
  
  {* Pokud uživatel není přihlašený tak se příspěk neukáže*}
-	<div class="post col-12 col-md-3 m-3 border border-primary rounded-3 pb-3 ">
-
+	<div class="card post col-12 col-md-3 m-3  rounded-3 pb-3 text-white" style = "background:rgba(255, 255, 255, 0.05) ">
+			<div class="card-body">
 				<div class="date">{$post->created_at|date:'F j, Y'}</div>
 
 				<h3>{$post->status}</h3>
@@ -19,25 +19,27 @@
 			<div class="px-4"> 
 				{if ($post->image)}
 {* obrázek existuje *}
-    			<img class="img-fluid" src="{$basePath}/{$post->image}" >
+    			<img class="card img-fluid" src="{$basePath}/{$post->image}" >
 				{else}
 {* obrázek nemá příspěvek *}
 
-    			<img class="img-fluid" src="{$basePath}/upload/no-image-available.png" >
+    			<img class="card img-fluid" src="{$basePath}/upload/no-image-available.png" >
 				{/if}
-
+				<hr>
 				<div>views : {$post->views_count}</div>
 				
 					
 				<div>{$post->content|truncate:256}</div>
-			<a class="btn btn-primary" n:href="Post:show $post->id">Více</a>
+				<hr>
+			<a  class="btn btn-outline-light text-white" style = "background:rgba(12, 110, 253, 0.05) " n:href="Post:show $post->id">Více</a>
 			</div>
+		</div>
 	</div>
 	{/if} {/foreach}
 </div>
-<div class="pagination justify-content-center">
+<div class="pagination justify-content-center m-4">
 	<br>
-	<a n:href="Edit:create" n:if="$user->isLoggedIn()" class="btn btn-primary ">Napsat nový příspěvek</a>
+	<a n:href="Edit:create" n:if="$user->isLoggedIn()" class="btn btn-outline-light text-white" style = "background:rgba(12, 110, 253, 0.05) ">Napsat nový příspěvek</a>
 	<br>
 </div>
 {/block}

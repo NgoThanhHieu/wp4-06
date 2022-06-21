@@ -147,6 +147,15 @@ return $this->database->query(
 			->where('category_id', $categoryId)
 			->order('created_at DESC');
 	}
+
+	public function getCategoryName(int $categoryId)
+	{
+		return $this->database
+			->table('categories')
+			->where(["id" => $categoryId])
+			->fetch()
+			->name;
+	}
 	
 	public function getUserRating(int $userId, int $postId,)
 	{

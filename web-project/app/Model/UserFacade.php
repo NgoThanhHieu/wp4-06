@@ -83,6 +83,7 @@ final class UserFacade implements Nette\Security\Authenticator
 			throw new DuplicateNameException;
 		}
 	}
+	
 	public function changePassword(int $userId, string $password): void
 	{
 		$this->database->table(self::TABLE_NAME)->where(self::COLUMN_ID, $userId)->update([

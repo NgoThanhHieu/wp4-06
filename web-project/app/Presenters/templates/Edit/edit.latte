@@ -1,14 +1,39 @@
 {block content}
-<br>
-	<p><a n:href="Homepage:default" class="btn btn-dark me-1 "> zpět</a></p>
-</br>
-<h1>Upravit příspěvek</h1>
-
-{control postForm}
 {snippet image}
-{if $post->image}
-<img class="float-start d-block mr-3" src="{$basePath}/{$post->image}">
-<a n:href="deleteImage! $post->id" class=" ajax btn btn-primary ">Smazat Obrázek</a>
+<br><p><a n:href="Homepage:default" class="btn btn-outline-light text-white" style = "background:rgba(12, 110, 253, 0.05) "> zpět</a></p></br>
 
-{/if}{/snippet}
-<a n:href="deletePost! $post->id" class="btn btn-danger ">Smazat Příspěvek</a>
+<div class="container">
+  <div class="d-flex align-items-center justify-content-center">
+
+   
+{if $post->image}
+
+     <div class="row mb-2">
+       <div class="col-md-6">
+         <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+           <div class="col p-4 d-flex flex-column position-static">
+   <img class=" rounded float-start d-block  " src="{$basePath}/{$post->image}">
+   <br>
+                    {/if}
+                    <div class="rounded mx-auto d-block">
+                    <a n:href="deleteImage! $post->id" class=" ajax btn btn-primary ">Smazat Obrázek</a>
+                    <a n:href="deletePost! $post->id" class="btn btn-danger ">Smazat Příspěvek</a>
+                    </div>
+                    <br>
+   		          <div class="card border mb-2 text-light"  style = "background:rgba(0, 0, 0, 0.3)">
+                  <div class="card-body">
+                    <div class="d-flex flex-start">
+   	                <div class="comments">
+                       {control postForm}     
+   		   		        </div>
+                    </div>
+                  </div>
+                 </div>
+   		                 
+             </div>
+           </div>
+         </div>
+     	</div>
+    </div>
+  </div>
+{/snippet}
